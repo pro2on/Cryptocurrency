@@ -1,6 +1,5 @@
 package com.pro2on.cryptocurrency.data.entity
 
-import android.graphics.Bitmap
 
 /**
  * Created by pro2on on 1/22/18.
@@ -19,6 +18,5 @@ data class CryptoEntity(val id: String,
                         val percentChange1h: Float,
                         val percentChange24h: Float,
                         val percentChange7d: Float,
-                        val lastUpdated: Int,
-                        val img: Bitmap?) {
+                        val lastUpdated: Int) {
 }

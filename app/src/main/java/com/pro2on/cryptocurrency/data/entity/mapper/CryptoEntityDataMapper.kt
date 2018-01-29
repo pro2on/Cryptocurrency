@@ -25,7 +25,6 @@ class CryptoEntityDataMapper @Inject constructor() {
             cryptoEntity.percentChange1h,
             cryptoEntity.percentChange24h,
             cryptoEntity.percentChange7d,
-            cryptoEntity.lastUpdated,
-            cryptoEntity.img)
+            cryptoEntity.lastUpdated)
 
 }

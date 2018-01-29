@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CryptoCurrency</string>
+
+    <string name="hello_toast">Hello, Kotlin!</string>
 </resources>

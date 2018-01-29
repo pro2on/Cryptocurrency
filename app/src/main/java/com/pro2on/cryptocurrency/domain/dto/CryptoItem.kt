@@ -1,6 +1,6 @@
 package com.pro2on.cryptocurrency.domain.dto
 
-import android.graphics.Bitmap
+
 
 /**
  * This is just a clas for storing crypto item
@@ -21,7 +21,6 @@ data class CryptoItem(
                       val percentChange1h: Float = 0f,
                       val percentChange24h: Float = 0f,
                       val percentChange7d: Float = 0f,
-                      val lastUpdated: Int = 0,
-                      val img: Bitmap? = null) {
+                      val lastUpdated: Int = 0) {
 
 }

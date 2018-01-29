@@ -34,7 +34,7 @@ class CryptoEntityDataMapperTest {
     val cryptoEntity = CryptoEntity("bitcoin", "Bitcoin", "BTC", 1,
             10715.3f, 1.0f, 9382550000.0f, 180224509639f,
             16819362.0f, 16819362.0f, 21000000.0f,
-            0.99f, -7.55f, -24.38f, 1516639761, null)
+            0.99f, -7.55f, -24.38f, 1516639761)
 
     val cryptoEntityDataMapper = CryptoEntityDataMapper()
 
@@ -116,11 +116,6 @@ class CryptoEntityDataMapperTest {
     @Test
     fun transform_testLastupdate() {
         assertEquals(cryptoEntity.lastUpdated, cryptoItem.lastUpdated)
-    }
-
-    @Test
-    fun transform_testImg() {
-        assertEquals(cryptoEntity.img, cryptoItem.img)
     }
 
 }
