@@ -4,6 +4,7 @@ import android.app.Application
 import com.pro2on.cryptocurrency.BuildConfig
 import com.pro2on.cryptocurrency.di.AppComponent
 import com.pro2on.cryptocurrency.di.DaggerAppComponent
+import com.pro2on.cryptocurrency.di.module.ApiModule
 import com.pro2on.cryptocurrency.di.module.AppModule
 import com.pro2on.cryptocurrency.di.module.DataModule
 import timber.log.Timber
@@ -18,6 +19,7 @@ class CryptoApp : Application() {
                 .builder()
                 .appModule(AppModule(this))
                 .dataModule(DataModule())
+                .apiModule(ApiModule())
                 .build()
     }
 

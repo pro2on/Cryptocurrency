@@ -3,6 +3,7 @@ package com.pro2on.cryptocurrency.ui.activity
 import android.app.Activity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -63,8 +64,15 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun setItems(items: List<CryptoItem>) {
         cryptoAdapter.swapItems(items)
-        Timber.d("items setup")
+        Timber.d("items setup:" + items)
     }
 
 
+    override fun toggleProgress(isShown: Boolean) {
+        if (isShown) {
+            main_progress.visibility = View.VISIBLE
+        } else {
+            main_progress.visibility = View.GONE
+        }
+    }
 }

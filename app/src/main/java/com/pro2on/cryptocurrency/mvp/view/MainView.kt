@@ -10,10 +10,14 @@ import com.pro2on.cryptocurrency.domain.dto.CryptoItem
  * Created by pro2on on 1/23/18.
  */
 interface MainView : MvpView {
+
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showToast()
 
-
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setItems(items: List<CryptoItem>)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun toggleProgress(isShown: Boolean)
+
 }

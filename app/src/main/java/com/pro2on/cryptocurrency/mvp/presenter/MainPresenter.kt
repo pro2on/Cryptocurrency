@@ -24,13 +24,14 @@ class MainPresenter(val interactor: CryptoListInteractor) : MvpPresenter<MainVie
     // When
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-
         initialLoading()
     }
 
     private fun initialLoading() {
 
         Timber.d("initial loading begin")
+
+        viewState.toggleProgress(true)
 
         unsubscribeOnDestroy(
 
@@ -40,10 +41,11 @@ class MainPresenter(val interactor: CryptoListInteractor) : MvpPresenter<MainVie
                 .subscribe(
                         {
                             items -> viewState.setItems(items)
+                            viewState.toggleProgress(false)
                             Timber.d("got items from interactor")
                         },
                         {
-                            e -> viewState.showToast()
+                            e -> viewState.toggleProgress(false)
                             Timber.e(e.message)
                         }
                 )

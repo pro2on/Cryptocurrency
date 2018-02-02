@@ -1,46 +1,57 @@
 package com.pro2on.cryptocurrency.data.repository
 
+import com.pro2on.cryptocurrency.data.entity.CryptoEntity
+import com.pro2on.cryptocurrency.data.entity.mapper.CryptoEntityDataMapper
+import com.pro2on.cryptocurrency.data.net.CoinmarketResponseItemMapper
+import com.pro2on.cryptocurrency.data.net.CoinmarketcapApi
+import com.pro2on.cryptocurrency.data.net.ResponseItem
 import com.pro2on.cryptocurrency.domain.dto.CryptoItem
 import com.pro2on.cryptocurrency.domain.repository.CryptoRepository
 import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
-import io.reactivex.ObservableOnSubscribe
-import timber.log.Timber
+import io.reactivex.functions.Function
 import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Created by pro2on on 1/22/18.
+ * Created by pro2on on 1/30/18.
  */
 @Singleton
-class CryptoDataDemoRepository @Inject constructor() : CryptoRepository {
+class CryptoDataRepository @Inject constructor(val coinApi: CoinmarketcapApi,
+                                               val serverMapper: CryptoEntityDataMapper,
+                                               val coinResponseMapper:CoinmarketResponseItemMapper): CryptoRepository {
 
+
+    val LIMIT = 100
 
     override fun get(start: Int): Observable<List<CryptoItem>> {
+       return coinApi.get(start, LIMIT)
+               .map (object : Function<List<ResponseItem>, List<CryptoEntity>> {
+                   override fun apply(t: List<ResponseItem>): List<CryptoEntity> {
 
-        Timber.d("try to return smth")
+                       val result = ArrayList<CryptoEntity>()
 
-        return Observable.create( object : ObservableOnSubscribe<List<CryptoItem>> {
+                       for (ri in t) {
+                           result.add(coinResponseMapper.transform(ri))
+                       }
 
-            override fun subscribe(e: ObservableEmitter<List<CryptoItem>>) {
+                       return  result
 
-                val items: MutableList<CryptoItem> = ArrayList()
-                for (i in 0 .. 99) {
-                    items.add(CryptoItem("BTC", "bitcoin", "BTC", i,
-                            10_000F, 1F, 1F, 100000F,
-                            1F, 1F, 1F, 12.01F,
-                            10F, 10F))
-                }
+                   }
 
-                Timber.d("heheh")
-                e.onNext(items.toList())
-                e.onComplete()
+               })
+               .map ( object : Function<List<CryptoEntity>, List<CryptoItem>> {
+                   override fun apply(t: List<CryptoEntity>): List<CryptoItem> {
 
+                       val result: MutableList<CryptoItem> = ArrayList()
 
-            }
+                       for (cr in t) {
+                           var ci = serverMapper.transform(cr)
+                           result.add(ci)
+                       }
 
-        } )
+                       return result
+                   }
+               })
     }
-
 
 }
